@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 const AddNews = (props) => {
   const classes = useStyles();
   const [news, setNews] = React.useState({ header: "", body: "" });
-  const [inputsError, setInputsError] = React.useState("");
+  const [message, setMessage] = React.useState({ type: "", message: "" });
 
   const handleChange = (event) => {
     let obj = { ...news };
@@ -28,9 +28,17 @@ const AddNews = (props) => {
 
   const handleSubmit = (event) => {
     if (!news.header || !news.body) {
-      return setInputsError("Все поля обязательны для заполнения");
+      return setMessage({
+        type: "error",
+        message: "Все поля обязательны для заполнения",
+      });
     }
+
     const submittedDate = new Date().getTime().toString();
+    setMessage({
+      type: "sent",
+      message: "Новость отправляется на сервер для проверки...",
+    });
     props.submitNews({ ...news, submittedDate }, props.token, () => {
       props.history.push("/mynews");
     });
@@ -48,7 +56,7 @@ const AddNews = (props) => {
           onChange={handleChange}
           value={news.header}
           required={true}
-          onFocus={() => setInputsError("")}
+          onFocus={() => setMessage({ type: "", message: "" })}
         />
         <TextField
           name="body"
@@ -61,10 +69,11 @@ const AddNews = (props) => {
           onChange={handleChange}
           value={news.body}
           required={true}
-          onFocus={() => setInputsError("")}
+          onFocus={() => setMessage({ type: "", message: "" })}
         />
-        <div>{props.loadingMessage}</div>
-        <div style={{ color: "red" }}>{inputsError}</div>
+        <div style={{ color: `${message.type === "error" ? "red" : "black"}` }}>
+          {message.message}
+        </div>
         <div>
           <Button
             variant="contained"
@@ -91,7 +100,6 @@ const AddNews = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  loadingMessage: state.auth.loadingMessage,
   token: state.auth.authenticated,
 });
 

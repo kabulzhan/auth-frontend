@@ -3,8 +3,9 @@ import requireAuth from "./requireAuth";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
-const MyNews = ({ getMyNews, token, news }) => {
+const MyNews = ({ clearNews, getMyNews, token, news }) => {
   useEffect(() => {
+    clearNews();
     getMyNews(token);
   }, [token]);
   return (
@@ -16,6 +17,7 @@ const MyNews = ({ getMyNews, token, news }) => {
             border: "black 1px solid",
             padding: "1rem",
           }}
+          key={article._id}
         >
           <div
             style={{
@@ -35,7 +37,7 @@ const MyNews = ({ getMyNews, token, news }) => {
               </em>
             </div>
           </div>
-          <div>{article.newsBody.substring(0, 50)}</div>
+          <div>{article.newsBody.substring(0, 200) + "..."}</div>
 
           <div>
             <p />

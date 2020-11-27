@@ -5,7 +5,6 @@ export default function CheckButton(props) {
   const [disabled, setDisabled] = useState(false);
   const handleSubmit = () => {
     setDisabled(true);
-    console.log("clicked");
     props.handleSubmit(props.id);
   };
   return (

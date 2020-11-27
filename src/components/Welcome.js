@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
-const News = ({ getApprovedNews, news }) => {
+const News = ({ clearNews, getApprovedNews, news }) => {
   useEffect(() => {
+    clearNews();
     getApprovedNews();
   }, [getApprovedNews]);
   return (
@@ -15,6 +16,7 @@ const News = ({ getApprovedNews, news }) => {
             border: "black 1px solid",
             padding: "1rem",
           }}
+          key={article._id}
         >
           <div
             style={{
@@ -34,7 +36,7 @@ const News = ({ getApprovedNews, news }) => {
               </em>
             </div>
           </div>
-          <div>{article.newsBody.substring(0, 50)}</div>
+          <div>{article.newsBody.substring(0, 200) + "..."}</div>
         </div>
       ))}
     </div>

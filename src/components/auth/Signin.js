@@ -6,7 +6,6 @@ import * as actions from "../../actions";
 
 class Signin extends Component {
   onSubmit = (formProps) => {
-    console.log(formProps);
     this.props.signin(formProps, () => {
       this.props.history.push("/feature");
     });

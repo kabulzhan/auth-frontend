@@ -33,7 +33,6 @@ export const signin = (formProps, callback) => async (dispatch) => {
       "https://auth-server-boilerplate.herokuapp.com/signin",
       formProps
     );
-    console.log(response.data);
     dispatch({ type: AUTH_USER, payload: response.data });
     localStorage.setItem("token", response.data.token);
     localStorage.setItem(
@@ -87,15 +86,44 @@ export const approveNews = (newsId, token) => async (dispatch) => {
     const headers = {
       authorization: token,
     };
-    console.log(newsId);
-    console.log("token: ", token);
-    await axios.post(
+    const response = await axios.post(
       "https://auth-server-boilerplate.herokuapp.com/news/unapproved",
       { id: newsId },
       { headers: headers }
     );
+    dispatch({ type: NEWS_RECEIVED, payload: response.data });
   } catch (e) {
     console.log("error while approving the article");
+    console.log(e);
+  }
+};
+
+export const clearNews = () => ({ type: NEWS_RECEIVED, payload: [] });
+
+export const deleteNews = (newsId, token) => async (dispatch) => {
+  try {
+    const headers = {
+      authorization: token,
+    };
+    axios.delete(
+      "https://auth-server-boilerplate.herokuapp.com/news/unapproved",
+      {
+        headers,
+        data: {
+          id: newsId,
+        },
+      }
+    );
+    const response = await axios.get(
+      "https://auth-server-boilerplate.herokuapp.com/news/unapproved",
+      {
+        headers: headers,
+      }
+    );
+
+    dispatch({ type: NEWS_RECEIVED, payload: response.data });
+  } catch (e) {
+    console.log("error while deleting the article");
     console.log(e);
   }
 };

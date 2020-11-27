@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import requireAuth from "./requireAuth";
 import { connect } from "react-redux";
 import * as actions from "../actions";
-import Button from "@material-ui/core/Button";
 import CheckButton from "./buttons/CheckButton";
 
 const CheckNews = ({
+  clearNews,
   getUnapprovedNews,
   approveNews,
   deleteNews,
@@ -13,12 +13,11 @@ const CheckNews = ({
   news,
 }) => {
   useEffect(() => {
-    console.log("get unapproved news");
+    clearNews();
     getUnapprovedNews(token);
   }, [token]);
 
   const handleApproveNews = (id) => {
-    console.log("approve news");
     approveNews(id, token);
   };
   const handleDeleteNews = (id) => deleteNews(id, token);
@@ -31,6 +30,7 @@ const CheckNews = ({
             border: "black 1px solid",
             padding: "1rem",
           }}
+          key={article._id}
         >
           <div
             style={{
@@ -50,7 +50,7 @@ const CheckNews = ({
               </em>
             </div>
           </div>
-          <div>{article.newsBody.substring(0, 50)}</div>
+          <div>{article.newsBody.substring(0, 200) + "..."}</div>
 
           <div>
             <p />
@@ -76,27 +76,6 @@ const CheckNews = ({
             >
               Удалить
             </CheckButton>
-            {/* <Button
-              id={`approve ${article._id}`}
-              variant="outlined"
-              color="primary"
-              size="small"
-              
-              style={{
-                marginRight: "0",
-                marginLeft: "auto",
-              }}
-              onClick={(e) => {
-                console.log("clicked");
-                document
-                  .getElementById(`approve ${article._id}`)
-                  .setAttribute("disabled", "true");
-                // e.target.disabled = true;
-                // handleSubmit(article._id);
-              }}
-            >
-              Одобрить
-            </Button> */}
           </div>
         </div>
       ))}
