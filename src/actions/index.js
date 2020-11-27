@@ -109,6 +109,7 @@ export const deleteNews = (newsId, token) => async (dispatch) => {
       "https://auth-server-boilerplate.herokuapp.com/news/unapproved",
       {
         headers,
+        crossdomain: true,
         data: {
           id: newsId,
         },

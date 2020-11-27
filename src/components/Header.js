@@ -15,18 +15,18 @@ class Header extends Component {
             <h4>Привет, {this.props.user.name}</h4>
           </div>
           {this.props.user.admin && (
-            <Link to="/check_news">
+            <Link to="/check_news" style={{ textDecoration: "none" }}>
               <Button variant="contained" style={{ backgroundColor: "orange" }}>
                 Проверить присланные новости
               </Button>
             </Link>
           )}
-          <Link to="/add_news">
+          <Link to="/add_news" style={{ textDecoration: "none" }}>
             <Button variant="contained" color="primary">
               Добавить новость
             </Button>
           </Link>
-          <Link to="/mynews">
+          <Link to="/mynews" style={{ textDecoration: "none" }}>
             <Button variant="outlined" color="primary">
               Мои новости
             </Button>
