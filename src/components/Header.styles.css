@@ -1,8 +1,13 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.header a {
+.header h4 {
   margin: 0 10px;
+}
+
+.header button {
+  margin: 0 5px;
 }

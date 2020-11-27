@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
+import requireAuth from "./requireAuth";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 
-const News = ({ getApprovedNews, news }) => {
+const MyNews = ({ getMyNews, token, news }) => {
   useEffect(() => {
-    getApprovedNews();
-  }, [getApprovedNews]);
+    getMyNews(token);
+  }, [token]);
   return (
     <div style={{ width: "60%", margin: "0 auto" }}>
       {news.map((article) => (
@@ -35,6 +36,14 @@ const News = ({ getApprovedNews, news }) => {
             </div>
           </div>
           <div>{article.newsBody.substring(0, 50)}</div>
+
+          <div>
+            <p />
+            <strong>Статус:</strong>{" "}
+            {article.approved
+              ? "Опубликован на сайте "
+              : "Еще не утвержден модератором"}
+          </div>
         </div>
       ))}
     </div>
@@ -47,4 +56,4 @@ const mapStateToProps = (state) => ({
   news: state.news.news,
 });
 
-export default connect(mapStateToProps, actions)(News);
+export default connect(mapStateToProps, actions)(requireAuth(MyNews));

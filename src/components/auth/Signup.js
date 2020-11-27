@@ -16,23 +16,39 @@ class Signup extends Component {
     return (
       <form onSubmit={handleSubmit(this.onSubmit)}>
         <fieldset>
+          <label>Name</label>
+          <div>
+            <Field
+              name="name"
+              type="text"
+              component="input"
+              autoComplete="none"
+            />
+          </div>
+        </fieldset>
+        <fieldset>
           <label>Email</label>
-          <Field
-            name="email"
-            type="text"
-            component="input"
-            autoComplete="none"
-          />
+          <div>
+            <Field
+              name="email"
+              type="text"
+              component="input"
+              autoComplete="none"
+            />
+          </div>
         </fieldset>
         <fieldset>
           <label>Password</label>
-          <Field
-            name="password"
-            type="password"
-            component="input"
-            autoComplete="none"
-          />
+          <div>
+            <Field
+              name="password"
+              type="password"
+              component="input"
+              autoComplete="none"
+            />
+          </div>
         </fieldset>
+        <div>{this.props.loadingMessage}</div>
         <div>{this.props.errorMessage}</div>
         <button>Sign Up!</button>
       </form>
@@ -41,6 +57,7 @@ class Signup extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  loading: state.auth.loadingMessage,
   errorMessage: state.auth.errorMessage,
 });
 
