@@ -5,6 +5,7 @@ import {
   LOADING,
   CLEAR_MESSAGES,
   NEWS_RECEIVED,
+  NEWS_FILTERED,
 } from "./types";
 
 export const signup = (formProps, callback) => async (dispatch) => {
@@ -178,4 +179,20 @@ export const getUnapprovedNews = (token) => async (dispatch) => {
     console.log("error while receiving news from the server");
     console.log(e);
   }
+};
+
+export const searchNews = (query, news) => {
+  // console.log(query);
+  // console.log(news);
+  let filteredNews = [];
+
+  if (!query) filteredNews = news;
+  else
+    filteredNews = news.filter(
+      (article) =>
+        article.newsHeader.toLowerCase().includes(query) ||
+        article.newsBody.toLowerCase().includes(query)
+    );
+  return { type: NEWS_FILTERED, payload: filteredNews };
+  // dispatch({ type: NEWS_RECEIVED, payload: response.data });
 };
