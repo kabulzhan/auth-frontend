@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import reduxThunk from "redux-thunk";
@@ -29,15 +29,7 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App>
-        <Route path="/" exact component={Welcome} />
-        <Route path="/signup" exact component={Signup} />
-        <Route path="/signin" exact component={Signin} />
-        <Route path="/add_news" component={AddNews} />
-        <Route path="/check_news" component={CheckNews} />
-        <Route path="/mynews" component={MyNews} />
-        {/* <Route path="/signout" component={Signout} /> */}
-      </App>
+      <App />
     </BrowserRouter>
   </Provider>,
   document.querySelector("#root")

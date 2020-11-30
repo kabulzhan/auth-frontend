@@ -3,6 +3,7 @@ import requireAuth from "./requireAuth";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import CheckButton from "./buttons/CheckButton";
+import Spinner from "./with-spinner/spinner.component";
 
 const CheckNews = ({
   clearNews,
@@ -11,6 +12,7 @@ const CheckNews = ({
   deleteNews,
   token,
   news,
+  isLoading,
 }) => {
   useEffect(() => {
     clearNews();
@@ -21,6 +23,7 @@ const CheckNews = ({
     approveNews(id, token);
   };
   const handleDeleteNews = (id) => deleteNews(id, token);
+  if (isLoading) return <Spinner />;
   return (
     <div style={{ width: "60%", margin: "0 auto" }}>
       {news.map((article) => (
@@ -84,9 +87,9 @@ const CheckNews = ({
 };
 
 const mapStateToProps = (state) => ({
-  loadingMessage: state.auth.loadingMessage,
   token: state.auth.authenticated,
   news: state.news.news,
+  isLoading: state.news.isNewsLoading,
 });
 
 export default connect(mapStateToProps, actions)(requireAuth(CheckNews));

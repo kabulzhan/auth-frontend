@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import TextField from "@material-ui/core/TextField";
+import Spinner from "./with-spinner/spinner.component";
 
 const News = ({
   filteredNews,
@@ -9,6 +10,7 @@ const News = ({
   clearNews,
   getApprovedNews,
   searchNews,
+  isLoading,
 }) => {
   useEffect(() => {
     clearNews();
@@ -18,7 +20,7 @@ const News = ({
   const handleChange = (e) => {
     searchNews(e.target.value, news);
   };
-
+  if (isLoading) return <Spinner />;
   return (
     <div style={{ width: "60%", margin: "0 auto" }}>
       <TextField
@@ -62,10 +64,10 @@ const News = ({
 };
 
 const mapStateToProps = (state) => ({
-  loadingMessage: state.auth.loadingMessage,
   token: state.auth.authenticated,
   news: state.news.news,
   filteredNews: state.news.filteredNews,
+  isLoading: state.news.isNewsLoading,
 });
 
 export default connect(mapStateToProps, actions)(News);

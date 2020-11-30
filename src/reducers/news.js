@@ -1,14 +1,22 @@
-import { NEWS_RECEIVED, NEWS_FILTERED } from "../actions/types";
+import { NEWS_RECEIVED, NEWS_FILTERED, NEWS_CLEARED } from "../actions/types";
 
 const INITIAL_STATE = {
   news: [],
   filteredNews: [],
+  isNewsLoading: true,
 };
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
+    case NEWS_CLEARED:
+      return { ...state, news: action.payload, isNewsLoading: true };
     case NEWS_RECEIVED:
-      return { ...state, news: action.payload, filteredNews: action.payload };
+      return {
+        ...state,
+        news: action.payload,
+        filteredNews: action.payload,
+        isNewsLoading: false,
+      };
     case NEWS_FILTERED:
       return { ...state, filteredNews: action.payload };
     default:

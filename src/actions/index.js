@@ -6,6 +6,7 @@ import {
   CLEAR_MESSAGES,
   NEWS_RECEIVED,
   NEWS_FILTERED,
+  NEWS_CLEARED,
 } from "./types";
 
 export const signup = (formProps, callback) => async (dispatch) => {
@@ -99,7 +100,7 @@ export const approveNews = (newsId, token) => async (dispatch) => {
   }
 };
 
-export const clearNews = () => ({ type: NEWS_RECEIVED, payload: [] });
+export const clearNews = () => ({ type: NEWS_CLEARED, payload: [] });
 
 export const deleteNews = (newsId, token) => async (dispatch) => {
   try {
@@ -132,7 +133,8 @@ export const deleteNews = (newsId, token) => async (dispatch) => {
 
 export const getMyNews = (token) => async (dispatch) => {
   try {
-    // dispatch({ type: LOADING, payload: "Новости запрашиваются из сервера..." });
+    dispatch({ type: NEWS_CLEARED, payload: [] });
+
     const headers = {
       authorization: token,
     };

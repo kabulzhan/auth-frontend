@@ -2,12 +2,14 @@ import React, { useEffect } from "react";
 import requireAuth from "./requireAuth";
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import Spinner from "./with-spinner/spinner.component";
 
-const MyNews = ({ clearNews, getMyNews, token, news }) => {
+const MyNews = ({ news, clearNews, getMyNews, token, isLoading }) => {
   useEffect(() => {
     clearNews();
     getMyNews(token);
   }, [token]);
+  if (isLoading) return <Spinner />;
   return (
     <div style={{ width: "60%", margin: "0 auto" }}>
       {news.map((article) => (
@@ -56,6 +58,7 @@ const mapStateToProps = (state) => ({
   loadingMessage: state.auth.loadingMessage,
   token: state.auth.authenticated,
   news: state.news.news,
+  isLoading: state.news.isNewsLoading,
 });
 
 export default connect(mapStateToProps, actions)(requireAuth(MyNews));
