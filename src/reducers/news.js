@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   isNewsLoading: true,
 };
 
-export default function (state = INITIAL_STATE, action) {
+export default function news(state = INITIAL_STATE, action) {
   switch (action.type) {
     case NEWS_CLEARED:
       return { ...state, news: action.payload, isNewsLoading: true };

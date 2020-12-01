@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import requireAuth from "./requireAuth";
 import { connect } from "react-redux";
 import * as actions from "../actions";

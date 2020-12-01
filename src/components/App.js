@@ -10,7 +10,6 @@ import MyNews from "./MyNews";
 import CheckNews from "./CheckNews";
 
 const App = (props) => {
-  const { isLoading } = props;
   return (
     <>
       <Header />

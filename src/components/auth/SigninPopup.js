@@ -19,8 +19,8 @@ function FormDialog(props) {
   };
 
   const handleClose = () => {
-    setOpen(false);
     props.clearMessages();
+    setOpen(false);
   };
 
   const [email, setEmail] = React.useState("user@test.com");
