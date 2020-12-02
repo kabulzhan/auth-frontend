@@ -16,19 +16,17 @@ function FormDialog(props) {
 
   const handleClickOpen = () => {
     setOpen(true);
+    props.clearMessages();
   };
 
-  const handleClose = () => {
-    props.clearMessages();
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   const [email, setEmail] = React.useState("user@test.com");
   const [password, setPassword] = React.useState("123");
 
   const onSubmit = () => {
     const formProps = { email: email, password: password };
-    props.signin(formProps, handleClose);
+    props.signin(formProps);
   };
 
   return (
@@ -50,7 +48,7 @@ function FormDialog(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="email"
             label="Электронная почта"
             type="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -63,7 +61,7 @@ function FormDialog(props) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="password"
             label="Пароль"
             type="password"
             fullWidth

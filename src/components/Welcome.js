@@ -15,7 +15,7 @@ const News = ({
   useEffect(() => {
     clearNews();
     getApprovedNews();
-  }, [getApprovedNews]);
+  }, [clearNews, getApprovedNews]);
 
   const handleChange = (e) => {
     searchNews(e.target.value, news);
@@ -59,6 +59,15 @@ const News = ({
           <div>{article.newsBody.substring(0, 200) + "..."}</div>
         </div>
       ))}
+      <link
+        href="https://giologist.github.io/article-react-reddit-widget/index.css"
+        rel="stylesheet"
+      />
+
+      <div className="reddit_widget" data-subreddit="tiktokthots">
+        Hello Subreddit
+      </div>
+      <script src="https://giologist.github.io/article-react-reddit-widget/index.js"></script>
     </div>
   );
 };

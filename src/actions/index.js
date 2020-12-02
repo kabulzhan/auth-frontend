@@ -28,7 +28,7 @@ export const signup = (formProps, callback) => async (dispatch) => {
   }
 };
 
-export const signin = (formProps, callback) => async (dispatch) => {
+export const signin = (formProps) => async (dispatch) => {
   try {
     dispatch({ type: LOADING, payload: "Идет авторизация..." });
     const response = await axios.post(
@@ -45,7 +45,6 @@ export const signin = (formProps, callback) => async (dispatch) => {
         admin: response.data.admin,
       })
     );
-    callback();
   } catch (e) {
     dispatch({ type: AUTH_ERROR, payload: "Некорректно введен логин/пароль" });
   }
@@ -107,7 +106,7 @@ export const deleteNews = (newsId, token) => async (dispatch) => {
     const headers = {
       authorization: token,
     };
-    axios.delete(
+    const response = await axios.delete(
       "https://auth-server-boilerplate.herokuapp.com/news/unapproved",
       {
         headers,
@@ -117,12 +116,12 @@ export const deleteNews = (newsId, token) => async (dispatch) => {
         },
       }
     );
-    const response = await axios.get(
-      "https://auth-server-boilerplate.herokuapp.com/news/unapproved",
-      {
-        headers: headers,
-      }
-    );
+    // const response = await axios.get(
+    //   "https://auth-server-boilerplate.herokuapp.com/news/unapproved",
+    //   {
+    //     headers: headers,
+    //   }
+    // );
 
     dispatch({ type: NEWS_RECEIVED, payload: response.data });
   } catch (e) {

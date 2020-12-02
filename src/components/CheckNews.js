@@ -17,12 +17,13 @@ const CheckNews = ({
   useEffect(() => {
     clearNews();
     getUnapprovedNews(token);
-  }, [token]);
+  }, [clearNews, getUnapprovedNews, token]);
 
   const handleApproveNews = (id) => {
     approveNews(id, token);
   };
   const handleDeleteNews = (id) => deleteNews(id, token);
+
   if (isLoading) return <Spinner />;
   return (
     <div style={{ width: "60%", margin: "0 auto" }}>

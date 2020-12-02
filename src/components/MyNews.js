@@ -8,7 +8,7 @@ const MyNews = ({ news, clearNews, getMyNews, token, isLoading }) => {
   useEffect(() => {
     clearNews();
     getMyNews(token);
-  }, [token]);
+  }, [token, clearNews, getMyNews]);
   if (isLoading) return <Spinner />;
   return (
     <div style={{ width: "60%", margin: "0 auto" }}>
