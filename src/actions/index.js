@@ -116,12 +116,6 @@ export const deleteNews = (newsId, token) => async (dispatch) => {
         },
       }
     );
-    // const response = await axios.get(
-    //   "https://auth-server-boilerplate.herokuapp.com/news/unapproved",
-    //   {
-    //     headers: headers,
-    //   }
-    // );
 
     dispatch({ type: NEWS_RECEIVED, payload: response.data });
   } catch (e) {
